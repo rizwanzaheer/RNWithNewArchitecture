@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -61,7 +61,16 @@ function App(): React.JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  useEffect(() => {
+    (async () => {
+      const data = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const res = data.json();
+      console.log('res is: ', res);
+    })();
+  });
 
+  const isHermes = () => !!global.HermesInternal;
+  console.log('isHermes is: ', isHermes());
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
